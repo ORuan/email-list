@@ -1,5 +1,18 @@
 {% extends 'base.html' %}
+{% load bootstrap %}
+{% block navbar %}
 {% include 'navbar.html' %}
-
+{% endblock navbar %}
 {% block container %}
+<div class="container">
+    <h2 class="p-3" style="text-align: center;">
+        {{title}}
+    </h2>
+    <form method="POST" class="form-text">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+
 {% endblock container %}

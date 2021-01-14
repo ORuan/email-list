@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
+import uuid
 
 
 # Create your models here.
@@ -24,3 +25,10 @@ class EmailsThatWillReceive(models.Model):
     email = models.EmailField(null=False)
     content = models.TextField(null=False)
     created_at = models.DateTimeField(auto_created=timezone.now())
+
+class Tokens(models.Model):
+    token = models.UUIDField(default=uuid.uuid4)
+    user_id = models.OneToOneField(User, on_delete=models.CASCADE)
+    time_expires = models.TimeField(null=False)
+    update_at = models.DateTimeField(auto_now_add=timezone.now())
+    
