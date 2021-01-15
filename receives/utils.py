@@ -2,12 +2,10 @@ from mailjet_rest import Client
 import os
 
 email_sender = "ruanpablomp@gmail.com"
-email_name = "Email Campaigne Ruan"
+email_name = "Ruan Pablo"
 
-API_KEY = os.environ['MJ_APIKEY_PUBLIC']
-API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
-
-
+#API_KEY = os.environ['MJ_APIKEY_PUBLIC']
+#API_SECRET = os.environ['MJ_APIKEY_PRIVATE']
 #EmailSender = email da aplicacao
 #EmailSender = email da aplicacao
 

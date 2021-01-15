@@ -3,6 +3,10 @@ from receives.forms import UserForm
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import redirect
 from core.views import home
+from receives.utils import *
+from django.contrib.auth import logout, login
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.models import User
 
 # Create your views here.
 def home(request):
@@ -28,13 +32,13 @@ def register_users(request):
 
 @login_required
 def edit_users(request):
-    user = User.object.get(id=request.user.id)
+    user = User.objects.get(id=request.user.id)
     if request.method == "POST":
-        form_data = UserForm(request.POST or user)
+        form_data = UserForm(request.POST or None, instance=user)
         if form_data.is_valid():
             form_data.save()
         else:
-            form_data = UserForm(user)
+            form_data = UserForm(request.POST or None, instance=user)
             context = {
                 "form":form_data,
                 "title":"Edição"
@@ -46,19 +50,19 @@ def edit_users(request):
         }
         return render(request, 'forms/users/forms.html', context)
     else:
-        form_data = UserForm()
+        form_data = UserForm(request.POST or None, instance=user)
         context = {
             "form":form_data,
             "title":"Edição"
         }
         return render(request, 'forms/users/forms.html', context)
 
+
 @login_required
-def delete_user(request):
-    email = request.user.email
-    #send_mail
-
-
-    context = {
-    }
-    return render(request, 'forms/users/confirm.html', context)
+def view_user(request):
+    if request.method == "GET":
+        user = User.objects.get(id=request.user.id)
+        context = {
+            "user": user
+        }
+        return render(request, 'forms/users/profile.html', context)
