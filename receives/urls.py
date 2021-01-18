@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path, include
-from receives.views import *
+from receives.views.users import *
 from django.contrib.auth.urls import *
 
 urlpatterns = [

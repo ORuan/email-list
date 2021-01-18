@@ -37,6 +37,7 @@ def edit_users(request):
         form_data = UserForm(request.POST or None, instance=user)
         if form_data.is_valid():
             form_data.save()
+            return redirect('usuarios:editar')
         else:
             form_data = UserForm(request.POST or None, instance=user)
             context = {
@@ -59,7 +60,7 @@ def edit_users(request):
 
 
 @login_required
-def view_user(request):
+def view_your_user(request):
     if request.method == "GET":
         user = User.objects.get(id=request.user.id)
         context = {
